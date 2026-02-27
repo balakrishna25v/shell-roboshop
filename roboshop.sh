@@ -3,7 +3,7 @@
 
 SG_ID="sg-0b0c61a02e2106b1f" # replace with your security group id
 AMI_ID="ami-0220d79f3f480ecf5" # replace with your AMI id
-for instance in $0
+for instance in $@
 
 do
     INSTANCE_ID=$(aws ec2 run-instances \
