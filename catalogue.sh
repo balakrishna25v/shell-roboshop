@@ -7,7 +7,8 @@ R="\e[31m" # Red color
 G="\e[32m" # Green color
 Y="\e[33m" # Yellow color
 N="\e[0m"  # No color
-SCRIPT_DIR=$pwd   
+SCRIPT_DIR=$pwd
+MONGODB_HOST="mongodb.baludevops.online" # replace with your MongoDB hostname   
 
 if [ $USERID -ne 0 ]; then
     echo -e "$R Please run this script  root user access $N" | tee -a $LOGS_FILE
@@ -69,3 +70,9 @@ systemctl daemon-reload &>>$LOGS_FILE
 systemctl enable catalogue 
 systemctl start catalogue
 VALIDATE $? "starting and enabling catalogue"
+
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGS_FILE
+dnf install mongodb-org-shell -y &>>$LOGS_FILE
+
+mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js &>>$LOGS_FILE
+VALIDATE $? "loading data into MongoDB"
