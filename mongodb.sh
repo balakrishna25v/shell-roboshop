@@ -1,5 +1,6 @@
 #!/bin/bash
 USERID=$(id -u)
+TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGS_FOLDER="/var/log/shell-roboshop"
 LOGS_FILE="$LOGS_FOLDER/$0.log"
 R="\e[31m" # Red color
@@ -16,10 +17,10 @@ mkdir -p $LOGS_FOLDER
 
 VALIDATE(){ 
     if [ $1 -ne 0 ]; then
-        echo -e "$2 ....$R FAILURE" | tee -a $LOGS_FILE
+        echo -e "$2 ....$R FAILURE $N" | tee -a $LOGS_FILE
         exit 1
     else
-        echo -e "$2 ....$G SUCCESS" | tee -a $LOGS_FILE
+        echo -e "$2 ....$G SUCCESS$N" | tee -a $LOGS_FILE
     fi
 }
 
