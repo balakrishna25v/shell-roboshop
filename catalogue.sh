@@ -25,25 +25,25 @@ VALIDATE(){
 
 }
 
-dnf module disable nodejs -y &>> $LOGS_FILE
+dnf module disable nodejs -y &>>$LOGS_FILE
 VALIDATE $? "Disabling Nodejs Default version"
 
-dnf module enable nodejs:20 -y &>> $LOGS_FILE
+dnf module enable nodejs:20 -y &>>$LOGS_FILE
 VALIDATE $? "Enabling Nodejs 20 version"
 
-dnf install nodejs -y &>> $LOGS_FILE
+dnf install nodejs -y &>>$LOGS_FILE
 VALIDATE $? "Installing Nodejs"
 
-id roboshop &>> $LOGS_FILE
+id roboshop &>>$LOGS_FILE
 if [ $? -ne 0 ]; then
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGS_FILE
-VALIDATE $? "creating system user"
+      useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+      VALIDATE $? "creating system user"
 else
     echo "roboshop user already exists. Skipping user creation." | tee -a $LOGS_FILE
 fi
 
-mkdir -p /app &>> $LOGS_FILE
+mkdir -p /app 
 VALIDATE $? "creating application directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>> $LOGS_FILE
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOGS_FILE
 VaLIDATE $? "downloading application code"
