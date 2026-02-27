@@ -3,7 +3,7 @@
 SG_ID="sg-0b0c61a02e2106b1f" # replace with your security group id
 AMI_ID="ami-0220d79f3f480ecf5" # replace with your AMI id
 ZONE_ID="Z05277511KWWUC7XA3P5L" # replace with your hosted zone id Z05277511KWWUC7XA3P5L
-DOMAIN_NAME="www.baludevops.online.com" # replace with your domain name
+DOMAIN_NAME="baludevops.online" # replace with your domain name
 
 for instance in $@
 do
