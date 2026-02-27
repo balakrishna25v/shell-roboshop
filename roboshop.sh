@@ -41,7 +41,7 @@ do
     "Comment": "updating record",
     "Changes": [
        {
-       "Action": "UPDATE",
+       "Action": "UPSERT",
        "ResourceRecordSet": {
          "Name": "'$RECORD_NAME'",
          "Type": "A",
@@ -57,7 +57,7 @@ do
   }
   ' # replace with your hosted zone id
   
-  
+
   echo "Record updated for $instance" 
 
 done
