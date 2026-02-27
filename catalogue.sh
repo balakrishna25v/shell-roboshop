@@ -39,11 +39,11 @@ if [ $? -ne 0 ]; then
       useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
       VALIDATE $? "creating system user"
 else
-    echo "roboshop user already exists. Skipping user creation." | tee -a $LOGS_FILE
+    echo "roboshop user already exists. $Y Skipping user creation $N" | tee -a $LOGS_FILE
 fi
 
 mkdir -p /app 
 VALIDATE $? "creating application directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOGS_FILE
-VaLIDATE $? "downloading application code"
+VALIDATE $? "downloading application code"
