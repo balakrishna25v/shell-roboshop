@@ -11,17 +11,15 @@ if [ $USERID -ne 0 ]; then
     echo -e "$R Please run this script  root user access $N" | tee -a $LOGS_FILE
     exit 1
 fi
-
 # Create logs directory if it doesn't exist
 mkdir -p $LOGS_FOLDER
 
-VALIDATE()
-{ 
+VALIDATE(){ 
     if [ $1 -ne 0 ]; then
-        echo "$2 ....failed" | tee -a $LOGS_FILE
+        echo -e "$2 ....$R FAILURE" | tee -a $LOGS_FILE
         exit 1
     else
-        echo "$2 ....success" | tee -a $LOGS_FILE
+        echo -e "$2 ....$G SUCCESS" | tee -a $LOGS_FILE
     fi
 }
 
