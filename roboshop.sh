@@ -1,14 +1,11 @@
 #!/bin/bash
-# This is the test run
 
 SG_ID="sg-0b0c61a02e2106b1f" # replace with your security group id
 AMI_ID="ami-0220d79f3f480ecf5" # replace with your AMI id
 ZONE_ID="Z05277511KWWUC7XA3P5L" # replace with your hosted zone id Z05277511KWWUC7XA3P5L
 DOMAIN_NAME="www.baludevops.online.com" # replace with your domain name
 
-
 for instance in $@
-
 do
     INSTANCE_ID=$(aws ec2 run-instances \
    --image-id $AMI_ID \
@@ -33,13 +30,12 @@ do
         --query 'Reservations[0].Instances[0].PrivateIpAddress' \
         --output text
       )
-      RECORD_NAME="$instance.$DOMAIN_NAME" #mongodb.baludevops.online.com
-     
+      RECORD_NAME="$instance.$DOMAIN_NAME" #mongodb.baludevops.online.com   
    fi  
    echo "IP Address :$IP" 
 
     aws route53 change-resource-record-sets \
-    --hosted-zone-id HOSTED-ZONE_ID
+    --hosted-zone-id $ZONE_ID \
     --change-batch '
   { 
     "Comment": "updating record",
@@ -56,10 +52,12 @@ do
           }
           ]
         }
-        }
-     ]
+      }
+    ]
   }
-   '
+  ' # replace with your hosted zone id
+  
+  
   echo "Record updated for $instance" 
 
 done
