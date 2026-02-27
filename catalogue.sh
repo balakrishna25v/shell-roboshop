@@ -7,6 +7,7 @@ R="\e[31m" # Red color
 G="\e[32m" # Green color
 Y="\e[33m" # Yellow color
 N="\e[0m"  # No color
+SCRIPT_DIR=$pwd   
 
 if [ $USERID -ne 0 ]; then
     echo -e "$R Please run this script  root user access $N" | tee -a $LOGS_FILE
@@ -61,7 +62,7 @@ VALIDATE $? "unzipping application code"
 npm install &>>$LOGS_FILE
 VALIDATE $? "installing npm dependencies"  
 
-cp catalogue.service /etc/systemd/system/catalogue.service &>>$LOGS_FILE
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGS_FILE
 VALIDATE $? "copying systemd service file"
 
 systemctl daemon-reload &>>$LOGS_FILE
