@@ -74,5 +74,15 @@ VALIDATE $? "starting and enabling catalogue"
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGS_FILE
 dnf install mongodb-org-shell -y &>>$LOGS_FILE
 
-mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js &>>$LOGS_FILE
+INDEX=$(mongosh --host $MONGODB_HOST --eval 'db.getMongo().getDBNames().indexOf("catalogue")' -q --quiet)
+
+if [ $INDEX -eq -1 ]; then
+mongosh --host $MONGODB_HOST </app/db/catalogue.js &>>$LOGS_FILE
+
 VALIDATE $? "loading data into MongoDB"
+else
+    echo -e "Catalogue database already loaded...$Y Skipping data loading $N" | tee -a $LOGS_FILE
+fi
+
+systemctl restart catalogue
+validate $? "restarting catalogue"
