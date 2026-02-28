@@ -7,7 +7,7 @@ R="\e[31m" # Red color
 G="\e[32m" # Green color
 Y="\e[33m" # Yellow color
 N="\e[0m"  # No color
-SCRIPT_DIR=$pwd
+SCRIPT_DIR=$PWD
 MONGODB_HOST="mongodb.baludevops.online" # replace with your MongoDB hostname   
 
 if [ $USERID -ne 0 ]; then
