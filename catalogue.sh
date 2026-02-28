@@ -76,7 +76,7 @@ dnf install mongodb-org-shell -y &>>$LOGS_FILE
 
 INDEX=$(mongosh --host $MONGODB_HOST --eval 'db.getMongo().getDBNames().indexOf("catalogue")' -q --quiet)
 
-if [ $INDEX -eq -1 ]; then
+if [ "$INDEX" -eq -1 ]; then
 mongosh --host $MONGODB_HOST </app/db/catalogue.js &>>$LOGS_FILE
 
 VALIDATE $? "loading data into MongoDB"
@@ -85,4 +85,4 @@ else
 fi
 
 systemctl restart catalogue
-validate $? "restarting catalogue"
+VALIDATE $? "restarting catalogue"
